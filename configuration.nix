@@ -47,4 +47,6 @@ in {
     };
 
     networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+
+	system.stateVersion = "23.11";
 }
