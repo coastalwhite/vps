@@ -2,6 +2,7 @@
     config,
     pkgs,
     lib,
+    ...
 }:
 
 let
@@ -40,8 +41,8 @@ in {
         };
     };
 
+    security.acme.acceptTerms = true;
     security.acme.certs = {
-        acceptTerms = true;
         "${domain}".email = "me@gburghoorn.com";
     };
 
