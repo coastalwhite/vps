@@ -1,5 +1,12 @@
 #!/bin/sh
 
+set -e
+
+if [ "$(id -u)" -ne 0 ]; then
+        echo 'This script must be run by root' >&2
+        exit 1
+fi
+
 umount /dev/vda*
 
 # create partitions (with 2G swap)
@@ -51,7 +58,8 @@ mount /dev/vda3 /mnt
 nixos-generate-config --root /mnt
 
 # install NixOS
-nixos-install --experimental-features 'nix-command flakes' --flake github:coastalwhite/vps#vps
+curl https://raw.githubusercontent.com/coastalwhite/vps/main/configuration.nix /mnt/etc/nixos/configuration.nix
+nixos-install --root /mnt --flake github:coastalwhite/vps#vps
 
 # unmount
 sync
