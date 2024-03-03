@@ -12,7 +12,6 @@
         nixosConfigurations = {
             vps = lib.nixosSystem {
                 inherit system;
-                specialArgs = {};
                 modules = [
                     ./configuration.nix
                 ];
