@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1709548370,
-        "narHash": "sha256-sHdxOeeDJgAp0y9CxpjqgjVqYosSV/ZG9vuGKlFLmj8=",
+        "lastModified": 1709549451,
+        "narHash": "sha256-v0qaTe1n9lr79hJkVoW4f5t+OLgJ0yc8GMhBHcACBEQ=",
         "owner": "coastalwhite",
         "repo": "gburghoorn.com",
-        "rev": "f31532847024bf5b537a5a333acd6e67a7e18573",
+        "rev": "889ef003fb8c0fb95bc0cdb444332b5680ae34c8",
         "type": "github"
       },
       "original": {
