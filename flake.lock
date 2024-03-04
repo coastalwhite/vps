@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "gburghoorn_com": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1709548370,
+        "narHash": "sha256-sHdxOeeDJgAp0y9CxpjqgjVqYosSV/ZG9vuGKlFLmj8=",
+        "owner": "coastalwhite",
+        "repo": "gburghoorn.com",
+        "rev": "f31532847024bf5b537a5a333acd6e67a7e18573",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coastalwhite",
+        "repo": "gburghoorn.com",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1709487436,
@@ -17,6 +37,7 @@
     },
     "root": {
       "inputs": {
+        "gburghoorn_com": "gburghoorn_com",
         "nixpkgs": "nixpkgs"
       }
     }

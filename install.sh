@@ -1,81 +1,40 @@
-#!/bin/sh
+sudo -i
+umount /dev/vda*
 
-set -e
+fdisk /dev/vda
+# Commands:
+# g
+# n _ _ +2GB t _ 19
+# n _ _ +16MB t _ 4
+# n _ _ _
+# w
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <base device>"
-fi
-
-if [ "$(id -u)" -ne 0 ]; then
-        echo 'This script must be run by root' >&2
-        exit 1
-fi
-
-BASE_DEVICE="$1"
-
-umount $BASE_DEVICE*
-
-# create partitions (with 2G swap)
-(
-echo g
-
-# swap
-echo n
-echo
-echo
-echo +2GB
-echo t
-echo
-echo 19
-
-# bios boot (for grub)
-echo n
-echo
-echo
-echo +16MB
-echo t
-echo
-echo 4
-
-# /
-echo n
-echo
-echo
-echo
-
-echo w
-) | fdisk $BASE_DEVICE
-
-fdisk -l $BASE_DEVICE
+fdisk -l /dev/vda
 
 # enable swap
-mkswap -f ${BASE_DEVICE}1
-swapon ${BASE_DEVICE}1
+mkswap -f /dev/vda1
+swapon /dev/vda1
 free -h
 
-# wait
-sleep 5
-
 # create filesystem and mount
-mkfs.ext4 ${BASE_DEVICE}3 -Lroot
-mount ${BASE_DEVICE}3 /mnt
+mkfs.ext4 /dev/vda3 -Lroot
+mount /dev/vda3 /mnt
 
 # generate NixOS config
 nixos-generate-config --root /mnt
 
-# install NixOS
-curl https://raw.githubusercontent.com/coastalwhite/vps/main/configuration.nix /mnt/etc/nixos/configuration.nix
+cd /mnt
 
-pushd /mnt
-nixos-install --flake github:coastalwhite/vps#vps
+vim etc/nixos/configuration.nix
+# Add:
+# uncomment: boot.loader.grub.device = "/dev/vda";
+# services.openssh = {
+# 	enable = true;
+# 	settings.PermitRootLogin = "yes";
+# };
 
-echo "Changing password:"
-echo ""
-passwd
-popd
+nixos-install
 
 # unmount
 sync
-umount ${BASE_DEVICE}3
-
-echo "Done. Now reboot via \"Remove ISO\" on the Vultr web UI."
+umount /dev/vda3

@@ -3,15 +3,22 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
+    gburghoorn_com = {
+        url = "github:coastalwhite/gburghoorn.com";
+        inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs }: let 
+  outputs = { self, nixpkgs, gburghoorn_com }: let 
         system = "x86_64-linux";
         lib = nixpkgs.lib;
     in {
         nixosConfigurations = {
             vps = lib.nixosSystem {
                 inherit system;
+                specialArgs = {
+                    inherit gburghoorn_com;
+                };
                 modules = [
                     ./configuration.nix
                 ];

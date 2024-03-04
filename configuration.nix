@@ -2,11 +2,13 @@
     config,
     pkgs,
     lib,
+    gburghoorn_com,
     ...
 }:
 
 let
-    basedrive = "/dev/sda";
+    basedrive = "/dev/vda";
+    system = "x86_64-linux";
     domain = "gburghoorn.com";
 in {
     imports = [
@@ -21,7 +23,9 @@ in {
 
     services.openssh = {
         enable = true;
-        passwordAuthentication = false;
+        settings = {
+            PasswordAuthentication = false;
+        };
     };
 
     users.users = {
@@ -41,8 +45,12 @@ in {
             enableACME = true;
             forceSSL = true;
             serverName = domain;
-            root = "/var/www/home";
+            root = "${gburghoorn_com.packages.${system}.default}";
         };
+
+		recommendedTlsSettings = true;
+		recommendedGzipSettings = true;
+		recommendedOptimisation = true;
     };
 
     security.acme.acceptTerms = true;
