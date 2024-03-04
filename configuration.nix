@@ -6,7 +6,8 @@
 }:
 
 let
-    domain = "localhost";
+    basedrive = "/dev/sda";
+    domain = "gburghoorn.com";
 in {
     imports = [
       ./hardware-configuration.nix
@@ -16,7 +17,7 @@ in {
 
     # Use the GRUB 2 boot loader.
     boot.loader.grub.enable = true;
-    boot.loader.grub.device = "/dev/vda";
+    boot.loader.grub.device = basedrive;
 
     services.openssh = {
         enable = true;
@@ -25,8 +26,11 @@ in {
 
     users.users = {
         root = {
-            password = "password123";
-            openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuxKJCMup6I1t3QYBu1nUhIa1A2/zw8m3wrUFLNLpYn" ];
+            password = "pw123";
+            openssh.authorizedKeys.keys = [
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFuxKJCMup6I1t3QYBu1nUhIa1A2/zw8m3wrUFLNLpYn"
+                "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDg0iUGVVFPsP9NDU4hVY8NdP+HCokXmFxNyIZCxXo7s"
+            ];
         };
     };
 

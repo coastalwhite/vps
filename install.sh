@@ -2,12 +2,18 @@
 
 set -e
 
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <base device>"
+fi
+
 if [ "$(id -u)" -ne 0 ]; then
         echo 'This script must be run by root' >&2
         exit 1
 fi
 
-umount /dev/vda*
+BASE_DEVICE="$1"
+
+umount $BASE_DEVICE*
 
 # create partitions (with 2G swap)
 (
@@ -38,31 +44,38 @@ echo
 echo
 
 echo w
-) | fdisk /dev/vda
+) | fdisk $BASE_DEVICE
 
-fdisk -l /dev/vda
+fdisk -l $BASE_DEVICE
 
 # enable swap
-mkswap -f /dev/vda1
-swapon /dev/vda1
+mkswap -f ${BASE_DEVICE}1
+swapon ${BASE_DEVICE}1
 free -h
 
 # wait
 sleep 5
 
 # create filesystem and mount
-mkfs.ext4 /dev/vda3 -Lroot
-mount /dev/vda3 /mnt
+mkfs.ext4 ${BASE_DEVICE}3 -Lroot
+mount ${BASE_DEVICE}3 /mnt
 
 # generate NixOS config
 nixos-generate-config --root /mnt
 
 # install NixOS
 curl https://raw.githubusercontent.com/coastalwhite/vps/main/configuration.nix /mnt/etc/nixos/configuration.nix
-nixos-install --root /mnt --flake github:coastalwhite/vps#vps
+
+pushd /mnt
+nixos-install --flake github:coastalwhite/vps#vps
+
+echo "Changing password:"
+echo ""
+passwd
+popd
 
 # unmount
 sync
-umount /dev/vda3
+umount ${BASE_DEVICE}3
 
 echo "Done. Now reboot via \"Remove ISO\" on the Vultr web UI."
