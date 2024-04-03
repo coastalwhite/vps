@@ -1,14 +1,10 @@
 {
-    config,
-    pkgs,
-    lib,
-    gburghoorn_com,
+    www,
     ...
 }:
 
 let
     basedrive = "/dev/vda";
-    system = "x86_64-linux";
     domain = "gburghoorn.com";
 in {
     imports = [
@@ -45,7 +41,7 @@ in {
             enableACME = true;
             forceSSL = true;
             serverName = domain;
-            root = "${gburghoorn_com.packages.${system}.default}";
+            root = "${www}/";
         };
 
 		recommendedTlsSettings = true;

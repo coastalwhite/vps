@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems"
+      },
+      "locked": {
+        "lastModified": 1705309234,
+        "narHash": "sha256-uNRRNRKmJyCRC/8y1RqBkqWBLM034y4qN7EprSdmgyA=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "1ef2e671c3b0c19053962c07dbda38332dcebf26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "gburghoorn_com": {
       "inputs": {
         "nixpkgs": [
@@ -7,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1709549451,
-        "narHash": "sha256-v0qaTe1n9lr79hJkVoW4f5t+OLgJ0yc8GMhBHcACBEQ=",
+        "lastModified": 1712063212,
+        "narHash": "sha256-bkeJS3ZLccOi/9ezwJ0bKDqkuntTNT4qb9cs1TOcSkU=",
         "owner": "coastalwhite",
         "repo": "gburghoorn.com",
-        "rev": "889ef003fb8c0fb95bc0cdb444332b5680ae34c8",
+        "rev": "6836a2443701f1afba5b124788d4eb4b95e63f41",
         "type": "github"
       },
       "original": {
@@ -35,10 +53,116 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1706487304,
+        "narHash": "sha256-LE8lVX28MV2jWJsidW13D2qrHU/RUUONendL2Q/WlJg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "90f456026d284c22b3e3497be980b2e47d0b28ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "gburghoorn_com": "gburghoorn_com",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "wavedrom_rs": "wavedrom_rs"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1712110341,
+        "narHash": "sha256-8LU2IM4ctHz043hlzoFUwQS1QIdhiMGEH/oIfPCxoWU=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "74deb67494783168f5b6d2071d73177e6bccab65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "utils": {
+      "inputs": {
+        "systems": "systems_2"
+      },
+      "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "wavedrom_rs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay",
+        "utils": "utils"
+      },
+      "locked": {
+        "lastModified": 1712144654,
+        "narHash": "sha256-nrUjV22tEZrHcxS6KArP9zEu4M8k/bIfDMju/GAyZqY=",
+        "owner": "coastalwhite",
+        "repo": "wavedrom-rs",
+        "rev": "56e9d724247ba3507a4dd1f281fb16d969e8ce5e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coastalwhite",
+        "repo": "wavedrom-rs",
+        "type": "github"
       }
     }
   },
